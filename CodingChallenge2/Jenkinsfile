@@ -13,6 +13,7 @@ pipeline{
                         FAILED_STAGE=env.STAGE_NAME
                    
                      git 'https://github.com/sreelakshmi665/awsSpring.git'
+                      bat 'del -rf CodingChallenge2'
                 }
             }
             }
