@@ -11,8 +11,8 @@ pipeline{
               steps{
                   script{
                         FAILED_STAGE=env.STAGE_NAME
-                    sh 'rm -rf Java'
-                     git 'https://github.com/sreelakshmi665/Java.git'
+                   bat 'rm -rf CodingChallenge2'
+                     git 'https://github.com/sreelakshmi665/awsSpring.git'
                 }
             }
             }
@@ -21,7 +21,7 @@ pipeline{
             steps{
                 script{
                         FAILED_STAGE=env.STAGE_NAME
-              sh 'mvn -f Java  clean validate'
+              bat 'mvn -f CodingChallenge2  clean validate'
                 }
             }
         }
@@ -30,7 +30,7 @@ pipeline{
             steps{
                 script{
                         FAILED_STAGE=env.STAGE_NAME
-               sh 'mvn -f Java compile'
+               bat 'mvn -f CodingChallenge2 compile'
                 }
             }
         }
@@ -40,7 +40,7 @@ pipeline{
                         FAILED_STAGE=env.STAGE_NAME    
                 withSonarQubeEnv('sonar-server'){
                     
-                        sh 'mvn -f Java sonar:sonar'
+                        bat 'mvn -f CodingChallenge2 sonar:sonar'
                     
                     }
                 }
@@ -61,7 +61,7 @@ pipeline{
             steps{
                 script{
                         FAILED_STAGE=env.STAGE_NAME
-                sh 'mvn -f Java test'
+                bat 'mvn -f CodingChallenge2 test'
                 }
             }
         }
@@ -70,7 +70,7 @@ pipeline{
             steps{
                 script{
                         FAILED_STAGE=env.STAGE_NAME
-               sh 'mvn -f Java package'
+               bat 'mvn -f CodingChallenge2 package'
                 }
             }
         }
@@ -79,7 +79,7 @@ pipeline{
             steps{
                 script{
                         FAILED_STAGE=env.STAGE_NAME
-               sh 'mvn -f Java verify'
+               bat 'mvn -f CodingChallenge2 verify'
                 }
             }
         }
@@ -88,7 +88,7 @@ pipeline{
             steps{
                 script{
                         FAILED_STAGE=env.STAGE_NAME
-                sh 'mvn -f Java install'
+                bat 'mvn -f CodingChallenge2 install'
                 }
             }
         }
@@ -98,7 +98,7 @@ pipeline{
            script{
                         FAILED_STAGE=env.STAGE_NAME
                         
-        archiveArtifacts artifacts:'Java/target/*.jar',followSymlinks:false
+        archiveArtifacts artifacts:'CodingChallenge2/target/*.jar',followSymlinks:false
            }
       }
       }
@@ -114,7 +114,7 @@ pipeline{
           spec: '''{
           "files": [
             {
-              "pattern": "Java/target/*.jar",
+              "pattern": "CodingChallenge2/target/*.jar",
               "target": "art-doc-dev-loc"
             }
          ]
@@ -133,10 +133,8 @@ pipeline{
          success {  
              echo 'This will run only if successful'
               mail bcc: '', body: "<b>Example</b><br>Project: ${env.JOB_NAME} <br>Build Number: ${env.BUILD_NUMBER} <br> Success!! <br> URL de build: ${env.BUILD_URL}", cc: '', charset: 'UTF-8', from: 'sreelakshmilucky14@gmail.com', mimeType: 'text/html', replyTo: '', subject: "ERROR CI: Project name -> ${env.JOB_NAME}", to: "sreelakshmilucky14@gmail.com"; 
-             sshagent(['058a56c8-b95f-435b-b514-25ef3beddbdd']){
-                  sh "ssh -o StrictHostKeyChecking=no ubuntu@13.233.49.82 'echo $HOME'"
-                    sh 'scp -r /var/jenkins_home/workspace/SpringJava/Java/target/Java-0.0.1-SNAPSHOT.jar ubuntu@13.233.49.82:/home/ubuntu/artifacts'     
-        }
+            
+       
          }  
          failure {  
              mail bcc: '', body: "<b>Example</b><br>Project: ${env.JOB_NAME} <br>Build Number: ${env.BUILD_NUMBER}<br> Failure!! <br> <br>Build Failed Stage: ${FAILED_STAGE} <br> URL de build: ${env.BUILD_URL}", cc: '', charset: 'UTF-8', from: 'sreelakshmilucky14@gmail.com', mimeType: 'text/html', replyTo: '', subject: "ERROR CI: Project name -> ${env.JOB_NAME}", to: "sreelakshmilucky14@gmail.com";  
