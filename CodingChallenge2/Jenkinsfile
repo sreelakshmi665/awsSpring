@@ -11,8 +11,9 @@ pipeline{
               steps{
                   script{
                         FAILED_STAGE=env.STAGE_NAME
-                        bat 'del -rt CodingChallenge2'
+                       
                      git 'https://github.com/sreelakshmi665/awsSpring.git'
+                       bat 'del -rt CodingChallenge2'
                      
                 }
             }
