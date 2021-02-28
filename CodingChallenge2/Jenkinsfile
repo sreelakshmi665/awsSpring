@@ -13,7 +13,7 @@ pipeline{
                         FAILED_STAGE=env.STAGE_NAME
                        
                      git 'https://github.com/sreelakshmi665/awsSpring.git'
-                       bat 'del -rt CodingChallenge2'
+                      
                      
                 }
             }
@@ -23,7 +23,7 @@ pipeline{
             steps{
                 script{
                         FAILED_STAGE=env.STAGE_NAME
-              bat 'mvn -f CodingChallenge2 validate'
+              bat 'mvn -f CodingChallenge2 clean validate'
                 }
             }
         }
