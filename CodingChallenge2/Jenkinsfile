@@ -133,8 +133,10 @@ pipeline{
          success {  
              echo 'This will run only if successful'
               mail bcc: '', body: "<b>Example</b><br>Project: ${env.JOB_NAME} <br>Build Number: ${env.BUILD_NUMBER} <br> Success!! <br> URL de build: ${env.BUILD_URL}", cc: '', charset: 'UTF-8', from: 'sreelakshmilucky14@gmail.com', mimeType: 'text/html', replyTo: '', subject: "ERROR CI: Project name -> ${env.JOB_NAME}", to: "sreelakshmilucky14@gmail.com"; 
-            
-       
+             sshagent(['88937939-1f6c-4ce3-abf3-4596f847bc3b']){
+                  //bat "ssh -o StrictHostKeyChecking=no ubuntu@13.235.246.28 'echo $HOME'"
+                    bat 'scp -r C:/Windows/System32/config/systemprofile/AppData/Local/Jenkins/.jenkins/workspace/awsSpring/CodingChallenge2/target/*.jar ubuntu@13.235.246.28:/home/ubuntu/artifacts' 
+             }
          }  
          failure {  
              mail bcc: '', body: "<b>Example</b><br>Project: ${env.JOB_NAME} <br>Build Number: ${env.BUILD_NUMBER}<br> Failure!! <br> <br>Build Failed Stage: ${FAILED_STAGE} <br> URL de build: ${env.BUILD_URL}", cc: '', charset: 'UTF-8', from: 'sreelakshmilucky14@gmail.com', mimeType: 'text/html', replyTo: '', subject: "ERROR CI: Project name -> ${env.JOB_NAME}", to: "sreelakshmilucky14@gmail.com";  
