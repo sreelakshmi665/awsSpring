@@ -22,7 +22,7 @@ pipeline{
             steps{
                 script{
                         FAILED_STAGE=env.STAGE_NAME
-              bat 'mvn -f CodingChallenge2 clean validate'
+              bat 'mvn -f CodingChallenge2 validate'
                 }
             }
         }
