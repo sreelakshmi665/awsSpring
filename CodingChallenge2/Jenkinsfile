@@ -11,7 +11,7 @@ pipeline{
               steps{
                   script{
                         FAILED_STAGE=env.STAGE_NAME
-                    bat 'mvn -f CodingChallenge2 clean'
+              
                      git 'https://github.com/sreelakshmi665/awsSpring.git'
                      
                 }
@@ -22,7 +22,7 @@ pipeline{
             steps{
                 script{
                         FAILED_STAGE=env.STAGE_NAME
-              bat 'mvn -f CodingChallenge2 validate'
+              bat 'mvn -f CodingChallenge2 clean validate'
                 }
             }
         }
